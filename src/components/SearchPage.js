@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
   Render the input for the search and the book list matching the search. Also a
@@ -30,5 +31,9 @@ const SearchPage = ({ onClick }) => (
     </main>
   </div>
 );
+
+SearchPage.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
 
 export default SearchPage;

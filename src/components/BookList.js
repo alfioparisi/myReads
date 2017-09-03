@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Books from './Books';
 
 /**
@@ -20,5 +21,9 @@ const BookList = ({ onClick }) => (
     </div>
   </div>
 );
+
+BookList.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
 
 export default BookList;

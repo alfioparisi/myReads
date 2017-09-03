@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
   Render each book.
@@ -31,5 +32,14 @@ const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
     <div className="book-authors">{authors}</div>
   </div>
 );
+
+Book.propTypes = {
+  id: PropTypes.string.isRequired,
+  coverURL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.string.isRequired,
+  shelf: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
+};
 
 export default Book;
