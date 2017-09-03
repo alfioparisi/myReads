@@ -38,8 +38,8 @@ Book.propTypes = {
   coverURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   authors: PropTypes.string.isRequired,
-  shelf: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  shelf: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 export default Book;
