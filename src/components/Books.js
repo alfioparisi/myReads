@@ -14,6 +14,7 @@ class Books extends Component {
     this.state = {
       books: []
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   /**
     Fetch all the books from the server and fill the books array.
@@ -25,26 +26,41 @@ class Books extends Component {
   }
 
   /**
+    Update the reading status of a specific book. Then update this.state.
+    @param {string} : the book id
+    @param {string} : the new status
+  */
+  handleChange(id, shelf) {
+    BooksAPI.update(id, shelf);
+    BooksAPI.get(id).then(book => this.setState(prevState => ({
+      books: [...prevState.books.filter(b => b.id !== id), book]
+    })));
+  }
+
+  /**
     Pass to each 'Bookshelf' a different part of this.state.books based off the
     current status (shelf property) of each book.
   */
   render() {
     const { books } = this.state;
-    return (
+    return books && books.length ? (
       <main className="list-books-content">
         <div>
           <Bookshelf title='Currently Reading'
             books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
+            onChange={this.handleChange}
           />
           <Bookshelf title='Want to Read'
             books={books.filter(({ shelf }) => shelf === 'wantToRead')}
+            onChange={this.handleChange}
           />
           <Bookshelf title='Read'
             books={books.filter(({ shelf }) => shelf === 'read')}
+            onChange={this.handleChange}
           />
         </div>
       </main>
-    );
+    ) : <div>Loading...</div>;
   }
 }
 

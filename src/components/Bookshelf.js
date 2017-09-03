@@ -6,27 +6,29 @@ import Book from './Book';
   If there is no books prop available don't render anything.
   @param {string} : title of this component
   @param {array} : books with the same status
+  @param {function} : trigger the reading status change of a book
   @return {object} : list of 'Books'
 */
-const Bookshelf = ({ title, books }) => {
-  return books ? (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">{title}</h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">
-          {books.map(({ id, imageLinks, title, authors }) => (
-            <li key={id}>
-              <Book
-                coverURL={imageLinks.thumbnail}
-                title={title}
-                authors={authors.join(', ')}
-              />
-            </li>
-          ))}
-        </ol>
-      </div>
+const Bookshelf = ({ title, books, onChange }) => (
+  <div className="bookshelf">
+    <h2 className="bookshelf-title">{title}</h2>
+    <div className="bookshelf-books">
+      <ol className="books-grid">
+        {books.map(({ id, imageLinks, title, authors, shelf }) => (
+          <li key={id}>
+            <Book
+              id={id}
+              coverURL={imageLinks.thumbnail}
+              title={title}
+              authors={authors.join(', ')}
+              shelf={shelf}
+              onChange={onChange}
+            />
+          </li>
+        ))}
+      </ol>
     </div>
-  ) : null;
-};
+  </div>
+);
 
 export default Bookshelf;

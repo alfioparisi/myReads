@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchPage from './components/SearchPage';
 import BookList from './components/BookList';
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 /**
