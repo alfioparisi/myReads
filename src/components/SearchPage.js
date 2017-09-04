@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Book from './Book';
-import { search, update } from '../BooksAPI';
+import * as BooksAPI from '../BooksAPI';
 import PropTypes from 'prop-types';
 
 /**
@@ -19,6 +19,14 @@ class SearchPage extends Component {
     this.state = {
       books: []
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(id, shelf) {
+    BooksAPI.update(id, shelf);
+    BooksAPI.get(id).then(book => this.setState(prevState => ({
+      books: prevState.books.filter(b => b.id !== id)
+    })));
   }
 
   render() {
@@ -42,7 +50,7 @@ class SearchPage extends Component {
             <input autoFocus type="text" placeholder="Search by title or author"
               onChange={evt => {
                 if (evt.target.value.trim()) {
-                  search(evt.target.value.trim())
+                  BooksAPI.search(evt.target.value.trim())
                     .then(books => this.setState({books}))
                     .catch(err => console.log(err));
                 }
@@ -61,7 +69,7 @@ class SearchPage extends Component {
                   title={title}
                   authors={authors.join(', ') || ''}
                   shelf={shelf}
-                  onChange={(id, shelf) => update(id, shelf)}
+                  onChange={this.handleChange}
                 />
               </li>
             )) : null}

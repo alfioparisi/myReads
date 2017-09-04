@@ -17,7 +17,7 @@ const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
         style={{ width: 128, height: 193, backgroundImage: `url(${coverURL})` }}
       ></div>
       <div className="book-shelf-changer">
-        <select value={shelf}
+        <select value={shelf || 'none'}
           onChange={evt => onChange(id, evt.target.value)}
         >
           <option value="none" disabled>Move to...</option>
