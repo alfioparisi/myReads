@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Book from './Book';
 import * as BooksAPI from '../BooksAPI';
-import PropTypes from 'prop-types';
 
 /**
   Render the input for the search and the book list matching the search. Also a
   button to go back to the main page.
-  @param {function} : call for 'BooksApp' state change
   @return {object} : the search page
 */
 class SearchPage extends Component {
-  static propTypes = {
-    onClick: PropTypes.func.isRequired
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -30,14 +25,13 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { onClick } = this.props;
     const { books } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search"
-            onClick={onClick}
-          >Close</a>
+          <Link className="close-search"
+            to="/"
+          >Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -72,7 +66,7 @@ class SearchPage extends Component {
                   onChange={this.handleChange}
                 />
               </li>
-            )) : null}
+            )) : <div>No books found</div>}
           </ol>
         </main>
       </div>

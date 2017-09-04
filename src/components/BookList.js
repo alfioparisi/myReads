@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Books from './Books';
 
 /**
   Render an header, the book list and the go-to-searchpage button.
-  @param {function} : call the change of 'BooksApp' state
   @return {object} : 'div' containing the 'Books' component
 */
 const BookList = ({ onClick }) => (
@@ -17,13 +16,9 @@ const BookList = ({ onClick }) => (
     <Books />
     {/* Search button */}
     <div className="open-search">
-      <a onClick={onClick}>Add a book</a>
+      <Link to="/search">Add a book</Link>
     </div>
   </div>
 );
-
-BookList.propTypes = {
-  onClick: PropTypes.func.isRequired
-};
 
 export default BookList;
