@@ -14,7 +14,12 @@ class SearchPage extends Component {
     this.state = {
       books: []
     };
+    this.storedBooks = [];
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then(books => this.storedBooks = books);
   }
 
   handleChange(id, shelf) {
@@ -45,7 +50,14 @@ class SearchPage extends Component {
               onChange={evt => {
                 if (evt.target.value.trim()) {
                   BooksAPI.search(evt.target.value.trim())
-                    .then(books => this.setState({books}))
+                    .then(books => {
+                      for (const book of books) {
+                        this.storedBooks.forEach(({ id, shelf }) => {
+                          if (book.id === id) book.shelf = shelf;
+                        });
+                      }
+                      this.setState({books});
+                    })
                     .catch(err => console.log(err));
                 }
               }}
