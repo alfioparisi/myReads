@@ -32,9 +32,14 @@ class Books extends Component {
   */
   handleChange(id, shelf) {
     BooksAPI.update(id, shelf);
-    BooksAPI.get(id).then(book => this.setState(prevState => ({
-      books: [...prevState.books.filter(b => b.id !== id), book]
-    })));
+    BooksAPI.get(id).then(book => {
+      if (book.shelf === 'none') this.setState(prevState => ({
+        books: prevState.books.filter(b => b.id !== id)
+      }));
+      else this.setState(prevState => ({
+        books: [...prevState.books.filter(b => b.id !== id), book]
+      }))
+    });
   }
 
   /**
