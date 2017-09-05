@@ -1,8 +1,14 @@
 import React from 'react';
+import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-const NavBar = () => (
-  <nav className="nav-main">
+const NavBar = ({ isOnScreen }) => (
+  <nav
+    className={classNames({
+      'nav-main': true,
+      'nav-main-active': isOnScreen
+    })}
+  >
     <ul className="nav-list">
       <li className="nav-item"><NavLink to="/"
         className="nav-link"

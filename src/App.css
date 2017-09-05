@@ -11,13 +11,33 @@ body, .app {
 /* main page */
 
 .list-books-title {
+  display: flex;
   padding: 10px 0;
   background: #2e7c31;
   text-align: center;
 }
+
+.list-books-btn {
+  max-width: 50px;
+  height: 40px;
+  flex: 1;
+  margin: auto 0 auto 20px;
+  background-color: #60ac5d;
+  background-image: url('./icons/hamburger.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 35px;
+  font-size: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border: none;
+  border-radius: 15%;
+}
+
 .list-books-title h1 {
+  flex: 4;
   font-weight: 400;
   margin: 0;
+  padding-right: calc((100% - 60px) / 4);
   color: white;
 }
 
@@ -180,7 +200,14 @@ body, .app {
   width: 50vw;
   position: absolute;
   top: 68px;
+  transform: translateX(-50vw);
   z-index: 999;
+  transition: transform 300ms ease-in-out;
+  will-change: transform;
+}
+
+.nav-main-active {
+  transform: translateX(0);
 }
 
 .nav-list {

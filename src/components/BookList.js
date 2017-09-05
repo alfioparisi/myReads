@@ -9,9 +9,12 @@ import Books from './Books';
 const BookList = ({ onClick }) => (
   <div className="list-books">
     {/* Header */}
-    <div className="list-books-title">
+    <header className="list-books-title">
+      <button className="list-books-btn"
+        onClick={onClick}
+      >Nav Button</button>
       <h1>MyReads</h1>
-    </div>
+    </header>
     {/* Books */}
     <Books />
     {/* Search button */}
