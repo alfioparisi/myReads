@@ -20,9 +20,11 @@ class Books extends Component {
     Fetch all the books from the server and fill the books array.
   */
   componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({
-      books
-    }));
+    BooksAPI.getAll()
+      .then(books => this.setState({
+        books
+      }))
+      .catch(err => console.log(err));
   }
 
   /**
