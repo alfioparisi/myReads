@@ -21,7 +21,9 @@ class BooksApp extends Component {
     const { showNavBar } = this.state;
     return (
       <div className="app">
-        <NavBar isOnScreen={showNavBar} />
+        <NavBar isOnScreen={showNavBar}
+          onClick={() => this.setState({showNavBar: false})}
+        />
         <Route exact path='/' render={() => (
           <BookList onClick={() => this.setState(prevState => ({
             showNavBar: !prevState.showNavBar
