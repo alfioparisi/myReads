@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 import * as BooksAPI from '../BooksAPI';
 
@@ -16,6 +17,7 @@ class Books extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
   /**
     Fetch all the books from the server and fill the books array.
   */
@@ -53,17 +55,37 @@ class Books extends Component {
     return books && books.length ? (
       <main className="list-books-content">
         <div>
-          <Bookshelf title='Currently Reading'
-            books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
-            onChange={this.handleChange}
+          <Route exact path="/"
+            render={() => (
+              <Bookshelf title='Currently Reading'
+                books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
+                onChange={this.handleChange}
+              />
+            )}
           />
-          <Bookshelf title='Want to Read'
-            books={books.filter(({ shelf }) => shelf === 'wantToRead')}
-            onChange={this.handleChange}
+          <Route path="/books/reading"
+            render={() => (
+              <Bookshelf title='Currently Reading'
+                books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
+                onChange={this.handleChange}
+              />
+            )}
           />
-          <Bookshelf title='Read'
-            books={books.filter(({ shelf }) => shelf === 'read')}
-            onChange={this.handleChange}
+          <Route path="/books/wantToRead"
+            render={() => (
+              <Bookshelf title='Want to Read'
+                books={books.filter(({ shelf }) => shelf === 'wantToRead')}
+                onChange={this.handleChange}
+              />
+            )}
+          />
+          <Route path="/books/read"
+            render={() => (
+              <Bookshelf title='Read'
+                books={books.filter(({ shelf }) => shelf === 'read')}
+                onChange={this.handleChange}
+              />
+            )}
           />
         </div>
       </main>

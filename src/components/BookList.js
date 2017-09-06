@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 import Books from './Books';
 
 /**
@@ -9,12 +10,7 @@ import Books from './Books';
 const BookList = ({ onClick }) => (
   <div className="list-books">
     {/* Header */}
-    <header className="list-books-title">
-      <button className="list-books-btn"
-        onClick={onClick}
-      >Nav Button</button>
-      <h1>MyReads</h1>
-    </header>
+    <Header onClick={onClick} />
     {/* Books */}
     <Books />
     {/* Search button */}

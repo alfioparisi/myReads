@@ -27,6 +27,11 @@ class BooksApp extends Component {
             showNavBar: !prevState.showNavBar
           }))} />
         )} />
+        <Route path='/books' render={() => (
+          <BookList onClick={() => this.setState(prevState => ({
+            showNavBar: !prevState.showNavBar
+          }))} />
+        )} />
         <Route path='/search' component={SearchPage} />
       </div>
     );
