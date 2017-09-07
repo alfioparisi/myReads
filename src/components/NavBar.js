@@ -22,7 +22,7 @@ const NavBar = ({ isOnScreen, onClick }) => (
         onClick={onClick}
       >Home</NavLink></li>
 
-      <li className="nav-item"><NavLink to="/books/reading"
+      <li className="nav-item"><NavLink to="/books/currentlyReading"
         className="nav-link"
         activeClassName="nav-link-active"
         onClick={onClick}

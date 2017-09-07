@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 import * as BooksAPI from '../BooksAPI';
-
+import BookInfo from './BookInfo';
 /**
   Render each bookshelf.
   Has its own state object. The books property is an array given by the BooksAPI.getAll()
@@ -52,6 +52,7 @@ class Books extends Component {
   */
   render() {
     const { books } = this.state;
+    console.log(books);
     return books && books.length ? (
       <main className="list-books-content">
         <div>
@@ -63,7 +64,7 @@ class Books extends Component {
               />
             )}
           />
-          <Route path="/books/reading"
+          <Route exact path="/books/currentlyReading"
             render={() => (
               <Bookshelf title='Currently Reading'
                 books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
@@ -71,7 +72,7 @@ class Books extends Component {
               />
             )}
           />
-          <Route path="/books/wantToRead"
+          <Route exact path="/books/wantToRead"
             render={() => (
               <Bookshelf title='Want to Read'
                 books={books.filter(({ shelf }) => shelf === 'wantToRead')}
@@ -79,7 +80,7 @@ class Books extends Component {
               />
             )}
           />
-          <Route path="/books/read"
+          <Route exact path="/books/read"
             render={() => (
               <Bookshelf title='Read'
                 books={books.filter(({ shelf }) => shelf === 'read')}
@@ -87,6 +88,7 @@ class Books extends Component {
               />
             )}
           />
+          <Route path='/books/bookInfo' component={BookInfo} />
         </div>
       </main>
     ) : <div>Loading...</div>;

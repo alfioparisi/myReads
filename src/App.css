@@ -193,6 +193,23 @@ body, .app {
   font-size: 0.8em;
 }
 
+.book-info-container {
+  display: flex;
+  height: 250px;
+}
+
+.book-info-info {
+  flex: 1;
+  text-align: center;
+}
+
+.book-info-book-cover {
+  flex: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50vw;
+}
+
 /* navbar */
 
 .nav-main {

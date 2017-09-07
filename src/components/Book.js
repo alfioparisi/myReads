@@ -1,5 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+/*
+  when clicking on a book the URL changes into /bookInfo/${book.id}
+  the new page provides the info on the book and the rating system.
+  the rating goes from 0 to 5 stars.
+  the book can be set as favorite (?)
+*/
+
 
 /**
   Render each book.
@@ -13,9 +22,9 @@ import PropTypes from 'prop-types';
 const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
   <div className="book">
     <div className="book-top">
-      <div className="book-cover"
+      <Link to={`/books/bookInfo/${id}`} className="book-cover"
         style={{ width: 128, height: 193, backgroundImage: `url(${coverURL})` }}
-      ></div>
+      ></Link>
       <div className="book-shelf-changer">
         <select value={shelf || 'none'}
           onChange={evt => onChange(id, evt.target.value)}
