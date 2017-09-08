@@ -24,13 +24,19 @@ class BookInfo extends Component {
           <div className="book-info-book-cover"
             style={{ backgroundImage: `url(${book.imageLinks.thumbnail})` }}
           ></div>
-          <div className="book-info-info">
-            <div className="book-title">{book.title}</div>
-            <div className="book-authors">{book.authors}</div>
-            <div>{book.publishedDate}</div>
-            <div>{book.pageCount}</div>
-          </div>
+          <ul className="book-info-list">
+            <li className="book-title">{book.title}</li>
+            <li className="book-authors">{book.authors}</li>
+            <li>Page count: {book.pageCount}</li>
+            <li>Publish date: {book.publishedDate}</li>
+            <li>Publisher: {book.publisher}</li>
+            <li><a href={book.previewLink} target="_blank">Read more info</a></li>
+            <li>Current status: {book.shelf}</li>
+          </ul>
         </div>
+        <p className="book-info-description">
+          {book.description}
+        </p>
       </div>
     ) : null;
   }

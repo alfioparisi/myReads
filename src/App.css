@@ -196,18 +196,29 @@ body, .app {
 .book-info-container {
   display: flex;
   height: 250px;
+  flex-wrap: wrap;
 }
 
-.book-info-info {
-  flex: 1;
+.book-info-list {
+  list-style-type: none;
+  padding: 0;
+  margin: auto;
+  width: 50vw;
   text-align: center;
+  font-size: 0.8em;
 }
 
 .book-info-book-cover {
-  flex: 1;
+  width: 50vw;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50vw;
+}
+
+.book-info-description {
+  padding: 5%;
+  max-height: 250px;
+  overflow-y: scroll;
 }
 
 /* navbar */
