@@ -2,14 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-/*
-  when clicking on a book the URL changes into /bookInfo/${book.id}
-  the new page provides the info on the book and the rating system.
-  the rating goes from 0 to 5 stars.
-  the book can be set as favorite (?)
-*/
-
-
 /**
   Render each book.
   @param {string} : the book id

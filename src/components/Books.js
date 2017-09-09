@@ -52,7 +52,6 @@ class Books extends Component {
   */
   render() {
     const { books } = this.state;
-    console.log(books);
     return books && books.length ? (
       <main className="list-books-content">
         <div>

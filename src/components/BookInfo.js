@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Rating from './Rating';
 import { get } from '../BooksAPI';
+
+// save rating on the server
 
 class BookInfo extends Component {
   constructor(props) {
@@ -7,6 +10,7 @@ class BookInfo extends Component {
     this.state = {
       book: {}
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -15,9 +19,12 @@ class BookInfo extends Component {
     get(id).then(book => this.setState({ book }));
   }
 
+  handleClick(n) {
+
+  }
+
   render() {
     const { book } = this.state;
-    console.log(book);
     return book.title ? (
       <div>
         <div className="book-info-container">
@@ -29,7 +36,7 @@ class BookInfo extends Component {
             <li className="book-authors">{book.authors}</li>
             <li>Page count: {book.pageCount}</li>
             <li>Publish date: {book.publishedDate}</li>
-            <li>Publisher: {book.publisher}</li>
+            <li>Publisher: {book.publisher || 'not found'}</li>
             <li><a href={book.previewLink} target="_blank">Read more info</a></li>
             <li>Current status: {book.shelf}</li>
           </ul>
@@ -37,6 +44,7 @@ class BookInfo extends Component {
         <p className="book-info-description">
           {book.description}
         </p>
+        <Rating onClick={this.handleClick} />
       </div>
     ) : null;
   }
