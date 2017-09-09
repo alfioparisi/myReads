@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Bookshelf from './Bookshelf';
 import * as BooksAPI from '../BooksAPI';
+import Bookshelf from './Bookshelf';
 import BookInfo from './BookInfo';
+
 /**
   Render each bookshelf.
-  Has its own state object. The books property is an array given by the BooksAPI.getAll()
+  The 'books' property is an array given by the BooksAPI.getAll()
   method.
-  @return {object} : 'Bookshelf'
+  @return {object} : 'Bookshelf' || 'BookInfo'
 */
 class Books extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class Books extends Component {
               />
             )}
           />
+
           <Route exact path="/books/currentlyReading"
             render={() => (
               <Bookshelf title='Currently Reading'
@@ -71,6 +73,7 @@ class Books extends Component {
               />
             )}
           />
+
           <Route exact path="/books/wantToRead"
             render={() => (
               <Bookshelf title='Want to Read'
@@ -79,6 +82,7 @@ class Books extends Component {
               />
             )}
           />
+
           <Route exact path="/books/read"
             render={() => (
               <Bookshelf title='Read'
@@ -87,6 +91,7 @@ class Books extends Component {
               />
             )}
           />
+
           <Route path='/books/bookInfo' component={BookInfo} />
         </div>
       </main>

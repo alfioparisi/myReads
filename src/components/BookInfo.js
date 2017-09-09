@@ -1,30 +1,51 @@
 import React, { Component } from 'react';
-import Rating from './Rating';
 import { get } from '../BooksAPI';
+import Rating from './Rating';
 
-// save rating on the server
 
+/**
+  Render the info for a specific book.
+  The state holds the book, which is retrieved from the server, and the rating.
+  The rating is saved in the localStorage to persist page navigation.
+  @return {object} : book info
+*/
 class BookInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      book: {}
+      book: {},
+      rating: 0
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
+  /**
+    The location prop is provided by react-router. Use it to get the book from
+    the server. Then update the state.
+  */
   componentDidMount() {
     const { location } = this.props;
     const id = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
-    get(id).then(book => this.setState({ book }));
+    get(id).then(book => this.setState({
+      book,
+      rating: localStorage.getItem(book.id) || 0
+    }));
   }
 
+ /**
+  Update the rating on the localStorage. Then update the state.
+  @param {number} : the rating 
+ */
   handleClick(n) {
-
+    localStorage.removeItem(this.state.book.id);
+    localStorage.setItem(this.state.book.id, n);
+    this.setState({
+      rating: n
+    });
   }
 
   render() {
-    const { book } = this.state;
+    const { book, rating } = this.state;
     return book.title ? (
       <div>
         <div className="book-info-container">
@@ -44,7 +65,7 @@ class BookInfo extends Component {
         <p className="book-info-description">
           {book.description}
         </p>
-        <Rating onClick={this.handleClick} />
+        <Rating onClick={this.handleClick} rating={rating} />
       </div>
     ) : null;
   }

@@ -1,7 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
+/**
+  Render the navbar.
+  @param {boolean} : whether to show this component or not
+  @param {function} : change the showNavBar state of 'App'
+  @return {object} : navbar
+*/
 const NavBar = ({ isOnScreen, onClick }) => (
   <nav
     className={classNames({
@@ -42,5 +49,10 @@ const NavBar = ({ isOnScreen, onClick }) => (
     </ul>
   </nav>
 );
+
+NavBar.propTypes = {
+  isOnScreen: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
+}
 
 export default NavBar;

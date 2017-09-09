@@ -18,10 +18,20 @@ class SearchPage extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+    Fetch all the books from the server and store them in a variable.
+  */
   componentDidMount() {
     BooksAPI.getAll().then(books => this.storedBooks = books);
   }
 
+
+  /**
+    When the reading status (shelf) of a book changes, update both the server
+    and this.state
+    @param {string} : the book id
+    @param {string} : the current reading status
+  */
   handleChange(id, shelf) {
     BooksAPI.update(id, shelf);
     BooksAPI.get(id).then(book => this.setState(prevState => ({
@@ -56,13 +66,12 @@ class SearchPage extends Component {
                           if (book.id === id) book.shelf = shelf;
                         });
                       }
-                      this.setState({books});
+                      this.setState({ books });
                     })
                     .catch(err => console.log(err));
                 }
               }}
             />
-
           </div>
         </div>
         <main className="search-books-results">
@@ -84,7 +93,6 @@ class SearchPage extends Component {
       </div>
     );
   }
-
 }
 
 export default SearchPage;
