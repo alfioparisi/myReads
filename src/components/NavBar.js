@@ -17,12 +17,6 @@ const NavBar = ({ isOnScreen, onClick }) => (
     })}
   >
     <ul className="nav-list">
-      <li className="nav-item"><NavLink to="/search"
-        className="nav-link"
-        activeClassName="nav-link-active"
-        onClick={onClick}
-      >Search</NavLink></li>
-
       <li className="nav-item"><NavLink to="/"
         className="nav-link"
         activeClassName="nav-link-active"
@@ -46,6 +40,18 @@ const NavBar = ({ isOnScreen, onClick }) => (
         activeClassName="nav-link-active"
         onClick={onClick}
       >Read</NavLink></li>
+
+      <li className="nav-item"><NavLink to="/search"
+        className="nav-link"
+        activeClassName="nav-link-active"
+        onClick={onClick}
+      >Search</NavLink></li>
+
+      <li className="nav-item"><NavLink to="/books/moveBooks"
+        className="nav-link"
+        activeClassName="nav-link-active"
+        onClick={onClick}
+      >Move books</NavLink></li>
     </ul>
   </nav>
 );

@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
 import Bookshelf from './Bookshelf';
 import BookInfo from './BookInfo';
+import MoveBooks from './MoveBooks';
 
 /**
   Render each bookshelf.
@@ -17,6 +18,7 @@ class Books extends Component {
       books: []
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleForm = this.handleForm.bind(this);
   }
 
   /**
@@ -48,6 +50,20 @@ class Books extends Component {
   }
 
   /**
+    Change the reading status of a bulk of books.
+    @param {object} : form values
+  */
+  handleForm(values) {
+    for (const book of this.state.books) {
+      if (values[book.id]) BooksAPI.update(book.id, values['moveTo'])
+        .catch(err => console.log(err));
+    }
+    BooksAPI.getAll()
+      .then(books => this.setState({ books }))
+      .catch(err => console.log(err));
+  }
+
+  /**
     Pass to each 'Bookshelf' a different part of this.state.books based off the
     current status (shelf property) of each book.
   */
@@ -55,45 +71,47 @@ class Books extends Component {
     const { books } = this.state;
     return books && books.length ? (
       <main className="list-books-content">
-        <div>
-          <Route exact path="/"
-            render={() => (
-              <Bookshelf title='Currently Reading'
-                books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
-                onChange={this.handleChange}
-              />
-            )}
-          />
+        <Route exact path="/"
+          render={() => (
+            <Bookshelf title='Currently Reading'
+              books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
+              onChange={this.handleChange}
+            />
+          )}
+        />
 
-          <Route exact path="/books/currentlyReading"
-            render={() => (
-              <Bookshelf title='Currently Reading'
-                books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
-                onChange={this.handleChange}
-              />
-            )}
-          />
+        <Route exact path="/books/currentlyReading"
+          render={() => (
+            <Bookshelf title='Currently Reading'
+              books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
+              onChange={this.handleChange}
+            />
+          )}
+        />
 
-          <Route exact path="/books/wantToRead"
-            render={() => (
-              <Bookshelf title='Want to Read'
-                books={books.filter(({ shelf }) => shelf === 'wantToRead')}
-                onChange={this.handleChange}
-              />
-            )}
-          />
+        <Route exact path="/books/wantToRead"
+          render={() => (
+            <Bookshelf title='Want to Read'
+              books={books.filter(({ shelf }) => shelf === 'wantToRead')}
+              onChange={this.handleChange}
+            />
+          )}
+        />
 
-          <Route exact path="/books/read"
-            render={() => (
-              <Bookshelf title='Read'
-                books={books.filter(({ shelf }) => shelf === 'read')}
-                onChange={this.handleChange}
-              />
-            )}
-          />
+        <Route exact path="/books/read"
+          render={() => (
+            <Bookshelf title='Read'
+              books={books.filter(({ shelf }) => shelf === 'read')}
+              onChange={this.handleChange}
+            />
+          )}
+        />
 
-          <Route path='/books/bookInfo' component={BookInfo} />
-        </div>
+        <Route path='/books/bookInfo' component={BookInfo} />
+
+        <Route path='/books/moveBooks' render={() => (
+          <MoveBooks books={books} handleForm={this.handleForm} />
+        )} />
       </main>
     ) : <div>Loading...</div>;
   }

@@ -37,7 +37,7 @@ body, .app {
   flex: 4;
   font-weight: 400;
   margin: 0;
-  padding-right: calc((100% - 60px) / 4);
+  padding-right: calc((100% - 60px) / 6);
   color: white;
 }
 
@@ -53,6 +53,12 @@ body, .app {
 @media (min-width: 600px) {
   .bookshelf {
     padding: 0 20px 40px;
+  }
+}
+
+@media (min-width: 450px) {
+  .list-books-btn {
+    transform: translateX(-999px);
   }
 }
 
@@ -196,7 +202,6 @@ body, .app {
 .book-info-container {
   display: flex;
   height: 250px;
-  flex-wrap: wrap;
 }
 
 .book-info-list {
@@ -243,6 +248,8 @@ body, .app {
   display: flex;
   flex-direction: column;
   padding: 10px 20px;
+  max-width: 100%;
+  margin: 0;
 }
 
 .nav-item {
@@ -258,6 +265,31 @@ body, .app {
 
 .nav-link-active {
   color: #2e7c31;
+}
+
+@media (min-width: 450px) {
+  .nav-main {
+    position: absolute;
+    transform: translateX(0);
+    width: 100vw;
+    max-width: 1170px;
+    margin: auto;
+    height: 50px;
+  }
+
+  .nav-list {
+    max-height: 100%;
+    flex-direction: row;
+    margin: 0;
+    padding: 7px;
+    text-align: center;
+  }
+
+  .nav-item {
+    flex: 1;
+    border-bottom: none;
+    margin: 0;
+  }
 }
 
 /* rating */
@@ -389,4 +421,34 @@ p {
 
 p:last-of-type {
   margin-bottom: 0;
+}
+
+/* move books form */
+
+.move-form {
+  max-width: 900px;
+  margin: auto;
+  font-size: 1.3em;
+  display: flex;
+  flex-direction: column;
+}
+
+.move-form-input {
+  margin: 10px;
+}
+
+.move-form-submit {
+  width: 60px;
+  height: 60px;
+  align-self: flex-end;
+  margin-right: 20px;
+  background-color: #60ac5d;
+  border: none;
+  border-radius: 10px;
+}
+
+@media (min-width: 450px) {
+  main {
+    margin-top: 50px;
+  }
 }

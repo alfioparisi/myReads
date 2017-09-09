@@ -34,7 +34,7 @@ class Rating extends Component {
     const { onClick } = this.props;
     const { rating } = this.state;
     return (
-      <div className="rating">
+      <article className="rating">
         <div className="rating-container">
           <input id="star-5" className="radio" name="star" type="radio"
             defaultChecked={rating === '5'}
@@ -82,7 +82,7 @@ class Rating extends Component {
             </label>
           </div>
         </div>
-      </div>
+      </article>
     );
   }
 }

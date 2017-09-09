@@ -34,7 +34,7 @@ class BookInfo extends Component {
 
  /**
   Update the rating on the localStorage. Then update the state.
-  @param {number} : the rating 
+  @param {number} : the rating
  */
   handleClick(n) {
     localStorage.removeItem(this.state.book.id);
@@ -47,7 +47,7 @@ class BookInfo extends Component {
   render() {
     const { book, rating } = this.state;
     return book.title ? (
-      <div>
+      <section>
         <div className="book-info-container">
           <div className="book-info-book-cover"
             style={{ backgroundImage: `url(${book.imageLinks.thumbnail})` }}
@@ -66,7 +66,7 @@ class BookInfo extends Component {
           {book.description}
         </p>
         <Rating onClick={this.handleClick} rating={rating} />
-      </div>
+      </section>
     ) : null;
   }
 }

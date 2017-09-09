@@ -11,7 +11,7 @@ import Book from './Book';
   @return {object} : list of 'Books'
 */
 const Bookshelf = ({ title, books, onChange }) => (
-  <div className="bookshelf">
+  <section className="bookshelf">
     <h2 className="bookshelf-title">{title}</h2>
     <div className="bookshelf-books">
       <ol className="books-grid">
@@ -29,7 +29,7 @@ const Bookshelf = ({ title, books, onChange }) => (
         ))}
       </ol>
     </div>
-  </div>
+  </section>
 );
 
 Bookshelf.propTypes = {

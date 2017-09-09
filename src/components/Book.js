@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
   @return {object} : a book
 */
 const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
-  <div className="book">
+  <article className="book">
     <div className="book-top">
       <Link to={`/books/bookInfo/${id}`} className="book-cover"
         style={{ width: 128, height: 193, backgroundImage: `url(${coverURL})` }}
@@ -31,7 +31,7 @@ const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
     </div>
     <div className="book-title">{title}</div>
     <div className="book-authors">{authors}</div>
-  </div>
+  </article>
 );
 
 Book.propTypes = {

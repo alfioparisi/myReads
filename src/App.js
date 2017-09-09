@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from './components/NavBar';
 import SearchPage from './components/SearchPage';
 import BookList from './components/BookList';
 import { Route } from 'react-router-dom';
@@ -106,20 +105,22 @@ class BooksApp extends Component {
     const { showNavBar } = this.state;
     return (
       <div className="app">
-        <NavBar isOnScreen={showNavBar}
-          onClick={() => this.setState({showNavBar: false})}
-        />
-
         <Route exact path='/' render={() => (
-          <BookList onClick={() => this.setState(prevState => ({
-            showNavBar: !prevState.showNavBar
-          }))} />
+          <BookList
+            onClick={() => this.setState(prevState => ({
+              showNavBar: !prevState.showNavBar
+            }))}
+          showNavBar={showNavBar}
+          />
         )} />
-        
+
         <Route path='/books' render={() => (
-          <BookList onClick={() => this.setState(prevState => ({
-            showNavBar: !prevState.showNavBar
-          }))} />
+          <BookList
+            onClick={() => this.setState(prevState => ({
+              showNavBar: !prevState.showNavBar
+            }))}
+            showNavBar={showNavBar}
+          />
         )} />
 
         <Route path='/search' component={SearchPage} />

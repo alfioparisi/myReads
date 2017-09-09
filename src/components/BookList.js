@@ -9,16 +9,16 @@ import Books from './Books';
   @param {function} : change the showNavBar state of 'App'
   @return {object} : 'div' containing the 'Books' component
 */
-const BookList = ({ onClick }) => (
+const BookList = ({ onClick, showNavBar }) => (
   <div className="list-books">
     {/* Header */}
-    <Header onClick={onClick} />
+    <Header onClick={onClick} showNavBar={showNavBar} />
     {/* Books */}
     <Books />
     {/* Search button */}
-    <div className="open-search">
+    <footer className="open-search">
       <Link to="/search">Add a book</Link>
-    </div>
+    </footer>
   </div>
 );
 
