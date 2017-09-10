@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
 import Bookshelf from './Bookshelf';
@@ -9,27 +10,21 @@ import MoveBooks from './MoveBooks';
   Render each bookshelf.
   The 'books' property is an array given by the BooksAPI.getAll()
   method.
+  @param {array} : the list of books stored in the shelves
+  @param {function} : change the books state of 'BooksApp'
   @return {object} : 'Bookshelf' || 'BookInfo'
 */
 class Books extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: []
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleForm = this.handleForm.bind(this);
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    handleBook: PropTypes.func.isRequired
   }
 
-  /**
-    Fetch all the books from the server and fill the books array.
-  */
-  componentDidMount() {
-    BooksAPI.getAll()
-      .then(books => this.setState({
-        books
-      }))
-      .catch(err => console.log(err));
+  constructor(props) {
+    super(props);
+    this.newBookList = [];
+    this.handleChange = this.handleChange.bind(this);
+    this.handleForm = this.handleForm.bind(this);
   }
 
   /**
@@ -38,14 +33,12 @@ class Books extends Component {
     @param {string} : the new status
   */
   handleChange(id, shelf) {
+    const { books, handleBook } = this.props;
     BooksAPI.update(id, shelf);
     BooksAPI.get(id).then(book => {
-      if (book.shelf === 'none') this.setState(prevState => ({
-        books: prevState.books.filter(b => b.id !== id)
-      }));
-      else this.setState(prevState => ({
-        books: [...prevState.books.filter(b => b.id !== id), book]
-      }))
+      if (book.shelf === 'none') this.newBookList = books.filter(b => b.id !== id);
+      else this.newBookList = [...books.filter(b => b.id !== id), book];
+      handleBook(this.newBookList);
     });
   }
 
@@ -54,12 +47,13 @@ class Books extends Component {
     @param {object} : form values
   */
   handleForm(values) {
-    for (const book of this.state.books) {
+    const { books, handleBook } = this.props;
+    for (const book of books) {
       if (values[book.id]) BooksAPI.update(book.id, values['moveTo'])
         .catch(err => console.log(err));
     }
     BooksAPI.getAll()
-      .then(books => this.setState({ books }))
+      .then(books => handleBook(books))
       .catch(err => console.log(err));
   }
 
@@ -68,7 +62,7 @@ class Books extends Component {
     current status (shelf property) of each book.
   */
   render() {
-    const { books } = this.state;
+    const { books } = this.props;
     return books && books.length ? (
       <main className="list-books-content">
         <Route exact path="/"

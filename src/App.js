@@ -124,6 +124,8 @@ class BooksApp extends Component {
               showNavBar: !prevState.showNavBar
             }))}
           showNavBar={showNavBar}
+          books={books}
+          handleBook={this.handleSearch}
           />
         )} />
 
@@ -133,6 +135,8 @@ class BooksApp extends Component {
               showNavBar: !prevState.showNavBar
             }))}
             showNavBar={showNavBar}
+            books={books}
+            handleBook={this.handleSearch}
           />
         )} />
 

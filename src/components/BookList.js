@@ -9,12 +9,12 @@ import Books from './Books';
   @param {function} : change the showNavBar state of 'App'
   @return {object} : 'div' containing the 'Books' component
 */
-const BookList = ({ onClick, showNavBar }) => (
+const BookList = ({ onClick, showNavBar, books, handleBook }) => (
   <div className="list-books">
     {/* Header */}
     <Header onClick={onClick} showNavBar={showNavBar} />
     {/* Books */}
-    <Books />
+    <Books books={books} handleBook={handleBook} />
     {/* Search button */}
     <footer className="open-search">
       <Link to="/search">Add a book</Link>
@@ -23,7 +23,10 @@ const BookList = ({ onClick, showNavBar }) => (
 );
 
 BookList.propTypes = {
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  showNavBar: PropTypes.bool.isRequired,
+  books: PropTypes.array.isRequired,
+  handleBook: PropTypes.func.isRequired
 }
 
 export default BookList;

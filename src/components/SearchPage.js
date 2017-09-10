@@ -7,6 +7,8 @@ import * as BooksAPI from '../BooksAPI';
 /**
   Render the input for the search and the book list matching the search. Also a
   button to go back to the main page.
+  @param {array} : the list of books stored in the shelves
+  @param {function} : change the books state of 'BooksApp'
   @return {object} : the search page
 */
 class SearchPage extends Component {
