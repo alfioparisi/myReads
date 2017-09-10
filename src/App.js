@@ -32,7 +32,12 @@ class BooksApp extends Component {
     @return {object} : localStorage
   */
   componentDidMount() {
-    BooksAPI.getAll().then(books => this.setState({ books }));
+    BooksAPI.getAll()
+      .then(books => this.setState({ books }))
+      .catch(err => {
+        console.log(err);
+        window.alert('Impossible to get books from the server');
+      });
 
     if (!window.localStorage) {
       Object.defineProperty(window, "localStorage", new (function () {

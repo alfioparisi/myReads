@@ -15,14 +15,14 @@ const Bookshelf = ({ title, books, onChange }) => (
     <h2 className="bookshelf-title">{title}</h2>
     <div className="bookshelf-books">
       <ol className="books-grid">
-        {books.map(({ id, imageLinks, title, authors, shelf }) => (
-          <li key={id}>
+        {books.map((book) => (
+          <li key={book.id}>
             <Book
-              id={id}
-              coverURL={imageLinks.thumbnail}
-              title={title}
-              authors={authors.join(', ')}
-              shelf={shelf}
+              id={book.id}
+              coverURL={book.imageLinks.thumbnail}
+              title={book.title}
+              authors={book.authors}
+              shelf={book.shelf}
               onChange={onChange}
             />
           </li>

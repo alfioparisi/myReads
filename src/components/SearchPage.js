@@ -83,7 +83,7 @@ class SearchPage extends Component {
                   id={id}
                   coverURL={imageLinks.thumbnail}
                   title={title}
-                  authors={authors.join(', ') || ''}
+                  authors={authors}
                   shelf={shelf}
                   onChange={this.handleChange}
                 />

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
   @param {string} : the book id
   @param {string} : URL of the thumbnail image
   @param {string} : title of the book
-  @param {string} : name of the authors
+  @param {array} : name of the authors
   @param {function} : trigger the reading status change of this book
   @return {object} : a book
 */
@@ -30,7 +30,7 @@ const Book = ({ id, coverURL, title, authors, shelf, onChange }) => (
       </div>
     </div>
     <div className="book-title">{title}</div>
-    <div className="book-authors">{authors}</div>
+    <div className="book-authors">{authors.join(', ')}</div>
   </article>
 );
 
@@ -38,7 +38,7 @@ Book.propTypes = {
   id: PropTypes.string.isRequired,
   coverURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  authors: PropTypes.string.isRequired,
+  authors: PropTypes.array.isRequired,
   shelf: PropTypes.string,
   onChange: PropTypes.func
 };
