@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI';
+import { Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
 import BookList from './components/BookList';
-import { Route } from 'react-router-dom';
 import './App.css';
 
 /**
@@ -15,8 +16,10 @@ class BooksApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      books: [],
       showNavBar: false
     };
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   /*
@@ -24,10 +27,13 @@ class BooksApp extends Component {
   */
 
   /**
+    Fetch the books from the server.
     If the localStorage is not defined, build one.
     @return {object} : localStorage
   */
   componentDidMount() {
+    BooksAPI.getAll().then(books => this.setState({ books }));
+
     if (!window.localStorage) {
       Object.defineProperty(window, "localStorage", new (function () {
         var aKeys = [], oStorage = {};
@@ -101,8 +107,15 @@ class BooksApp extends Component {
     }
   }
 
+  /**
+    Update the state with the new list of books provided by 'SearchPage'.
+  */
+  handleSearch(books) {
+    this.setState({ books });
+  }
+
   render() {
-    const { showNavBar } = this.state;
+    const { books, showNavBar } = this.state;
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -123,7 +136,9 @@ class BooksApp extends Component {
           />
         )} />
 
-        <Route path='/search' component={SearchPage} />
+        <Route path='/search' render={() => (
+          <SearchPage books={books} handleSearch={this.handleSearch} />
+        )} />
       </div>
     );
   }
