@@ -19,7 +19,7 @@ class BooksApp extends Component {
       books: [],
       showNavBar: false
     };
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   /*
@@ -108,10 +108,20 @@ class BooksApp extends Component {
   }
 
   /**
-    Update the state with the new list of books provided by 'SearchPage'.
+    Update the reading status of a specific book. Then update this.state.
+    @param {string} : the book id
+    @param {string} : the new status
   */
-  handleSearch(books) {
-    this.setState({ books });
+  handleChange(id, shelf) {
+    BooksAPI.update(id, shelf);
+    BooksAPI.get(id).then(book => {
+      if (book.shelf === 'none') this.setState(prevState => ({
+        books: prevState.books.filter(b => b.id !== id)
+      }));
+      else this.setState(prevState => ({
+        books: [...prevState.books.filter(b => b.id !== id), book]
+      }));
+    });
   }
 
   render() {
@@ -125,7 +135,7 @@ class BooksApp extends Component {
             }))}
           showNavBar={showNavBar}
           books={books}
-          handleBook={this.handleSearch}
+          handleBook={this.handleChange}
           />
         )} />
 
@@ -136,12 +146,12 @@ class BooksApp extends Component {
             }))}
             showNavBar={showNavBar}
             books={books}
-            handleBook={this.handleSearch}
+            handleBook={this.handleChange}
           />
         )} />
 
         <Route path='/search' render={() => (
-          <SearchPage books={books} handleSearch={this.handleSearch} />
+          <SearchPage books={books} handleSearch={this.handleChange} />
         )} />
       </div>
     );

@@ -23,23 +23,7 @@ class Books extends Component {
   constructor(props) {
     super(props);
     this.newBookList = [];
-    this.handleChange = this.handleChange.bind(this);
     this.handleForm = this.handleForm.bind(this);
-  }
-
-  /**
-    Update the reading status of a specific book. Then update this.state.
-    @param {string} : the book id
-    @param {string} : the new status
-  */
-  handleChange(id, shelf) {
-    const { books, handleBook } = this.props;
-    BooksAPI.update(id, shelf);
-    BooksAPI.get(id).then(book => {
-      if (book.shelf === 'none') this.newBookList = books.filter(b => b.id !== id);
-      else this.newBookList = [...books.filter(b => b.id !== id), book];
-      handleBook(this.newBookList);
-    });
   }
 
   /**
@@ -62,14 +46,14 @@ class Books extends Component {
     current status (shelf property) of each book.
   */
   render() {
-    const { books } = this.props;
+    const { books, handleBook } = this.props;
     return books && books.length ? (
       <main className="list-books-content">
         <Route exact path="/"
           render={() => (
             <Bookshelf title='Currently Reading'
               books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
-              onChange={this.handleChange}
+              onChange={handleBook}
             />
           )}
         />
@@ -78,7 +62,7 @@ class Books extends Component {
           render={() => (
             <Bookshelf title='Currently Reading'
               books={books.filter(({ shelf }) => shelf === 'currentlyReading')}
-              onChange={this.handleChange}
+              onChange={handleBook}
             />
           )}
         />
@@ -87,7 +71,7 @@ class Books extends Component {
           render={() => (
             <Bookshelf title='Want to Read'
               books={books.filter(({ shelf }) => shelf === 'wantToRead')}
-              onChange={this.handleChange}
+              onChange={handleBook}
             />
           )}
         />
@@ -96,7 +80,7 @@ class Books extends Component {
           render={() => (
             <Bookshelf title='Read'
               books={books.filter(({ shelf }) => shelf === 'read')}
-              onChange={this.handleChange}
+              onChange={handleBook}
             />
           )}
         />

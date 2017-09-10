@@ -33,15 +33,11 @@ class SearchPage extends Component {
     @param {string} : the current reading status
   */
   handleChange(id, shelf) {
-    const { books, handleSearch } = this.props;
-    BooksAPI.update(id, shelf);
-    BooksAPI.get(id).then(book => {
-      this.newBookList = [...books.filter(b => b.id !== id), book];
-      this.setState(prevState => ({
-        searchedBooks: prevState.searchedBooks.filter(b => b.id !== id)
-      }));
-      handleSearch(this.newBookList);
-    });
+    const { handleSearch } = this.props;
+    handleSearch(id, shelf);
+    this.setState(prevState => ({
+      searchedBooks: prevState.searchedBooks.filter(book => book.id !== id)
+    }));
   }
 
   render() {
