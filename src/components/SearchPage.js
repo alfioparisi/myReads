@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Book from './Book';
 import * as BooksAPI from '../BooksAPI';
@@ -9,26 +10,40 @@ import * as BooksAPI from '../BooksAPI';
   @return {object} : the search page
 */
 class SearchPage extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    handleSearch: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       searchedBooks: []
-    }
+    };
+    this.newBookList = [];
     this.handleChange = this.handleChange.bind(this);
   }
 
   /**
-    When the reading status (shelf) of a book changes, update both the server
-    and this.state
+    When the reading status (shelf) of a book changes, update both the server,
+    this.state and the books state of 'BooksApp'.
     @param {string} : the book id
     @param {string} : the current reading status
   */
   handleChange(id, shelf) {
+    const { books, handleSearch } = this.props;
     BooksAPI.update(id, shelf);
+    BooksAPI.get(id).then(book => {
+      this.newBookList = [...books.filter(b => b.id !== id), book];
+      this.setState(prevState => ({
+        searchedBooks: prevState.searchedBooks.filter(b => b.id !== id)
+      }));
+      handleSearch(this.newBookList);
+    });
   }
 
   render() {
-    const { books, handleSearch } = this.props;
+    const { books } = this.props;
     const { searchedBooks } = this.state;
     return (
       <div className="search-books">
@@ -41,7 +56,6 @@ class SearchPage extends Component {
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
               You can find these search terms here:
               https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
@@ -50,17 +64,12 @@ class SearchPage extends Component {
                 if (evt.target.value.trim()) {
                   BooksAPI.search(evt.target.value.trim())
                     .then(searchedBooks => {
-                      let newBookList = [];
-                      if (searchedBooks.length) {
-                        for (const book of searchedBooks) {
-                          newBookList = books.map(({ id, shelf }) => {
-                            if (book.id === id) book.shelf = shelf;
-                            return book;
-                          });
-                        }
-                        handleSearch(newBookList);
-                        this.setState({ searchedBooks });
+                      for (const book of searchedBooks) {
+                        books.forEach(({ id, shelf }) => {
+                          if (book.id === id) book.shelf = shelf;
+                        });
                       }
+                      this.setState({ searchedBooks });
                     })
                     .catch(err => console.log(err));
                 }
